@@ -1,4 +1,4 @@
-- [1. ng-jest-cypress-template](#1-ng-jest-cypress-template)
+- [1. checklists](#1-checklists)
   - [1.1. Create project](#11-create-project)
   - [1.2. Add eslint](#12-add-eslint)
   - [1.3. Add prettier](#13-add-prettier)
@@ -36,14 +36,14 @@
 
 https://docs.cypress.io/guides/component-testing/angular/examples
 
-# 1. ng-jest-cypress-template
+# 1. checklists
 
 ## 1.1. Create project
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.8.
 
 ```bash
-ng new ng-jest-cypress-template --style=scss --routing --strict
+ng new checklists --style=scss --routing --strict
 ```
 
 ## 1.2. Add eslint

@@ -25,7 +25,7 @@ import { InputOutputStepperComponent } from './components/input-output-stepper.c
   ],
 })
 export class AppComponent {
-  title = 'ng-jest-cypress-template';
+  title = 'checklists';
   appCode = '';
 
   constructor(

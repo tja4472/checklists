@@ -32,10 +32,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'ng-jest-cypress-template'`, () => {
+  it(`should have as title 'checklists'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toBe('ng-jest-cypress-template');
+    expect(app.title).toBe('checklists');
   });
 
   it('should render title', () => {
@@ -44,7 +44,7 @@ describe('AppComponent', () => {
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.content span')?.textContent).toContain(
-      'ng-jest-cypress-template app is running!'
+      'checklists app is running!'
     );
   });
 
