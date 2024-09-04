@@ -1,0 +1,61 @@
+# https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs
+# https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+# https://github.com/cypress-io/github-action
+
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+      - update
+  pull_request:
+    branches: [master]
+
+env:
+  # default changed in node 17
+  # https://nodejs.org/dist/latest-v18.x/docs/api/cli.html#--dns-result-orderorder
+  NODE_OPTIONS: --dns-result-order=ipv4first
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x, 21.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          # cache: 'npm'
+      - run: npm i -g npm@10
+      - run: npm --version
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test
+      - run: npm run prettier:check
+      - run: npm run lint
+
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Run E2E tests
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          spec: cypress/e2e/0-my-tests/**
+          start: npm start
+          wait-on: 'http://localhost:4200'
+
+      - name: Run Component tests 🧪
+        uses: cypress-io/github-action@v6
+        with:
+          browser: chrome
+          # we have already installed everything
+          install: false
+          # to run component tests we need to use "component: true"
+          component: true

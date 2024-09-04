@@ -1,0 +1,44 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["ES2022", "dom"],
+    "useDefineForClassFields": false,
+    // Added to ng new app
+    // "types": ["jest", "node"],
+    "paths": {
+      "@app/*": ["src/app/*"]
+    }
+    // ^^^^
+  },
+  // Required for jest to work with cypress
+  // "include": ["src/**/*", "./setup-jest.ts"],
+  // ^^^^
+  "include": ["src/**/*.ts"],
+  "files": ["./setup-jest.ts"],
+  "exclude": ["node_modules", "cyprus", "cypress.config.ts"],
+  // "exclude": ["src/**/*.spec.ts"],
+  //
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}
