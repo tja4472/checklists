@@ -1,39 +1,23 @@
-import { Component } from '@angular/core';
-
-import { EnvironmentService } from '@app/environment.service';
-
-import { AppActionsTestService } from '@app/services/app-actions-test.service';
-import { FormsComponent } from '../+examples/03-forms';
+import { ChangeDetectionStrategy, Component, Optional } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NgSwitch, NgSwitchDefault, NgSwitchCase } from '@angular/common';
-import { StepperComponent } from './stepper/stepper.component';
-import { InputOutputStepperComponent } from './components/input-output-stepper.component';
+import { Auth, signInAnonymously } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [
-    NgSwitch,
-    NgSwitchDefault,
-    NgSwitchCase,
-    RouterOutlet,
-    FormsComponent,
-    StepperComponent,
-    InputOutputStepperComponent,
-  ],
+  imports: [RouterOutlet],
+  template: `
+    <h1>Welcome to {{ title }}!</h1>
+
+    <router-outlet />
+  `,
+  styles: [],
 })
 export class AppComponent {
-  title = 'checklists';
-  appCode = '';
+  title = 'AngularFireTestbed2024';
 
-  constructor(
-    environmentService: EnvironmentService,
-    // For Cypress app actions
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    appActionsTestService: AppActionsTestService
-  ) {
-    this.appCode = environmentService.appCode;
+  constructor(@Optional() private auth: Auth) {
+    // signInAnonymously(this.auth);
   }
 }
