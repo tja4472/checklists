@@ -3,7 +3,7 @@ import { ChecklistItemService } from './checklist-item.service';
 import { Component, Injector, runInInjectionContext } from '@angular/core';
 import { StorageService } from 'src/app/shared/data-access/storage.service';
 import { Subject } from 'rxjs';
-
+// TODO: Enable test
 describe('ChecklistItemService', () => {
   let service: ChecklistItemService;
   let storageService: StorageService;

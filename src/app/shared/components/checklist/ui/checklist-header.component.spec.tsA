@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { subscribeSpyTo } from '@hirez_io/observer-spy';
 import { RouterTestingModule } from '@angular/router/testing';
 
+// TODO: Enable test
 describe('ChecklistHeaderComponent', () => {
   let component: ChecklistHeaderComponent;
   let fixture: ComponentFixture<ChecklistHeaderComponent>;

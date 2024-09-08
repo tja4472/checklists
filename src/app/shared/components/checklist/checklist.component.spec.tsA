@@ -13,6 +13,7 @@ import { FormBuilder } from '@angular/forms';
 import { ChecklistItemService } from '../../../local-storage/signals/checklist/data-access/checklist-item.service';
 import { ChecklistItem } from 'src/app/shared/interfaces/checklist-item';
 
+// TODO: Enable test
 describe('ChecklistComponent', () => {
   let component: ChecklistComponent;
   let fixture: ComponentFixture<ChecklistComponent>;

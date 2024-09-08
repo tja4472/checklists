@@ -12,6 +12,7 @@ import { FormBuilder } from '@angular/forms';
 import { ChecklistListComponent } from './ui/checklist-list.component';
 import { MockChecklistListComponent } from './ui/checklist-list.component.spec';
 
+// TODO: Enable test
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
