@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Optional } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Auth, signInAnonymously } from '@angular/fire/auth';
+import { Auth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-root',
@@ -8,14 +8,14 @@ import { Auth, signInAnonymously } from '@angular/fire/auth';
   standalone: true,
   imports: [RouterOutlet],
   template: `
-    <h1>Welcome to {{ title }}!</h1>
+    <h1 data-test="welcome">Welcome to {{ title }}!</h1>
 
     <router-outlet />
   `,
   styles: [],
 })
 export class AppComponent {
-  title = 'AngularFireTestbed2024';
+  title = 'Checklists';
 
   constructor(@Optional() private auth: Auth) {
     // signInAnonymously(this.auth);

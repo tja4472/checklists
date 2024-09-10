@@ -16,12 +16,12 @@ export default defineConfig({
     },
     baseUrl: 'http://localhost:4200',
   },
-
+/*
   retries: {
     runMode: 3,
     openMode: 2,
   },
-
+*/
   component: {
     devServer: {
       framework: 'angular',

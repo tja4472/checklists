@@ -10,7 +10,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ChecklistHeaderComponent } from './ui/checklist-header.component';
 import { ChecklistServiceBase } from 'src/app/shared/checklist.service.base';
 import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { ChecklistItemListComponent } from './ui/checklist-item-list.component';
 import { ModalComponent } from '../shared/modal.component';
 import { ChecklistItem } from 'src/app/shared/interfaces/checklist-item';

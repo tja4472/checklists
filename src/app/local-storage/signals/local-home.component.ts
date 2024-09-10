@@ -8,8 +8,9 @@ import HeaderComponent from './header.component';
   standalone: true,
   template: `
     <app-header />
-    <app-home />
+    <app-shared-home />
   `,
   imports: [HeaderComponent, HomeComponent],
 })
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export default class LocalHomeComponent {}

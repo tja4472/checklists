@@ -1,4 +1,4 @@
-import { CommonModule, KeyValuePipe } from '@angular/common';
+import { KeyValuePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -13,22 +13,27 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header>
-      <h2>{{ title() }}</h2>
-      <button (click)="close.emit()">close</button>
+      <h2 data-test="modal-header">{{ title() }}</h2>
+      <button data-test="modal-close-button" (click)="close.emit()">
+        close
+      </button>
     </header>
     <section>
       <form [formGroup]="formGroup()" (ngSubmit)="save.emit(); close.emit()">
         @for (control of formGroup().controls | keyvalue; track control.key) {
           <div>
-            <label [for]="control.key">{{ control.key }}</label>
+            <label data-test="modal-label" [for]="control.key">{{
+              control.key
+            }}</label>
             <input
+              data-test="modal-input"
               [id]="control.key"
               type="text"
               [formControlName]="control.key"
             />
           </div>
         }
-        <button type="submit" data-testid="save-checklist-button">Save</button>
+        <button type="submit" data-test="save-checklist-button">Save</button>
       </form>
     </section>
   `,

@@ -13,17 +13,22 @@ import { FormBuilder } from '@angular/forms';
 import { ChecklistServiceBase } from 'src/app/shared/checklist.service.base';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-shared-home',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   template: `
     <header>
-      <a href="/">Home</a><br />
-      <button (click)="checklistBeingEdited.set({})">Add Checklist</button>
+      <a data-test="home-href" href="/">Home</a><br />
+      <button
+        data-test="add-checklist-button"
+        (click)="checklistBeingEdited.set({})"
+      >
+        Add Checklist
+      </button>
     </header>
 
     <section>
-      <h2>Your checklists</h2>
+      <h2 data-test="checklists-header">Your checklists</h2>
 
       <app-checklist-list
         [checklists]="checklistService.checklists()"
