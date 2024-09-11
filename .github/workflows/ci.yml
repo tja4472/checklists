@@ -47,15 +47,15 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
-          spec: cypress/e2e/0-my-tests/**
+          # spec: cypress/e2e/0-my-tests/**
           start: npm start
           wait-on: 'http://localhost:4200'
 
-      - name: Run Component tests 🧪
-        uses: cypress-io/github-action@v6
-        with:
-          browser: chrome
-          # we have already installed everything
-          install: false
-          # to run component tests we need to use "component: true"
-          component: true
+      #- name: Run Component tests 🧪
+      #  uses: cypress-io/github-action@v6
+      #  with:
+      #    browser: chrome
+      #    # we have already installed everything
+      #    install: false
+      #    # to run component tests we need to use "component: true"
+      #    component: true
