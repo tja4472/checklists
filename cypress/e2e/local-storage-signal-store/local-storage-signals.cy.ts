@@ -81,6 +81,9 @@ describe('Local storage signals', () => {
   it('Select checklist', () => {
     //
     selectChecklist();
-    cy.location('pathname').should('eq', '/local-storage/signal-store/checklist/aaa');
+    cy.location('pathname').should(
+      'eq',
+      '/local-storage/signal-store/checklist/aaa'
+    );
   });
 });

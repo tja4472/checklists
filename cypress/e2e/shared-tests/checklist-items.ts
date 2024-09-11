@@ -23,12 +23,11 @@ export function checkTextNoItems() {
     );
 }
 
-export function backLink(pathname:string) {
+export function backLink(pathname: string) {
   //
   cy.getBySel('back-button').click();
   // cy.location('pathname').should('eq', '/local-storage/signals');
   cy.location('pathname').should('eq', pathname);
-
 }
 
 export function addItem_CheckTextNoItems() {
@@ -113,6 +112,5 @@ export function addedItem_Edit() {
 
 export function addedItem_Delete() {
   //
-cy.getBySel('delete-checklist-item-button').click()
-
+  cy.getBySel('delete-checklist-item-button').click();
 }

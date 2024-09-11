@@ -44,7 +44,7 @@ describe('Local storage signals checklist items', () => {
 
   it('Back link', () => {
     //
-    backLink( '/local-storage/signal-store');
+    backLink('/local-storage/signal-store');
   });
 
   describe('Add checklist item', () => {

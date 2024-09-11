@@ -1,4 +1,4 @@
-import { Injectable, computed, effect, inject, signal } from '@angular/core';
+import { Injectable, effect, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subject } from 'rxjs';
 import {
@@ -8,19 +8,13 @@ import {
 } from 'src/app/shared/interfaces/checklist';
 import { ChecklistItemServiceBase } from 'src/app/shared/checklist-item.service.base';
 import { StorageService } from './storage.service';
-import {
-  patchState,
-  signalStore,
-  withComputed,
-  withMethods,
-  withState,
-} from '@ngrx/signals';
+import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 
-export interface ChecklistsState {
+export type ChecklistsState = {
   checklists: Checklist[];
   loaded: boolean;
   error: string | null;
-}
+};
 
 const initialState: ChecklistsState = {
   checklists: [],
@@ -85,6 +79,8 @@ export class ChecklistService {
 */
       },
       error: (err) => {
+        // TODO: @typescript-eslint/no-unsafe-assignment
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         this.checklistStore.set({ error: err });
         // return this.state.update((state) => ({ ...state, error: err }));
       },

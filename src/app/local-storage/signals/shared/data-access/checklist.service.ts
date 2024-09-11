@@ -11,11 +11,11 @@ import { ChecklistItemServiceBase } from 'src/app/shared/checklist-item.service.
 import { ChecklistServiceBase } from 'src/app/shared/checklist.service.base';
 import { StorageService } from './storage.service';
 
-export interface ChecklistsState {
+export type ChecklistsState = {
   checklists: Checklist[];
   loaded: boolean;
   error: string | null;
-}
+};
 
 @Injectable()
 export class ChecklistService extends ChecklistServiceBase {
@@ -44,30 +44,35 @@ export class ChecklistService extends ChecklistServiceBase {
     super();
     // reducers
     this.checklistsLoaded$.pipe(takeUntilDestroyed()).subscribe({
-      next: (checklists) =>
+      next: (checklists) => {
         this.state.update((state) => ({
           ...state,
           checklists,
           loaded: true,
-        })),
-      error: (err) => this.state.update((state) => ({ ...state, error: err })),
+        }));
+      },
+      error: (err) => {
+        // TODO: @typescript-eslint/no-unsafe-assignment
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        this.state.update((state) => ({ ...state, error: err }));
+      },
     });
 
-    this.add$.pipe(takeUntilDestroyed()).subscribe((checklist) =>
+    this.add$.pipe(takeUntilDestroyed()).subscribe((checklist) => {
       this.state.update((state) => ({
         ...state,
         checklists: [...state.checklists, this.addIdToChecklist(checklist)],
-      }))
-    );
+      }));
+    });
 
-    this.remove$.pipe(takeUntilDestroyed()).subscribe((id) =>
+    this.remove$.pipe(takeUntilDestroyed()).subscribe((id) => {
       this.state.update((state) => ({
         ...state,
         checklists: state.checklists.filter((checklist) => checklist.id !== id),
-      }))
-    );
+      }));
+    });
 
-    this.edit$.pipe(takeUntilDestroyed()).subscribe((update) =>
+    this.edit$.pipe(takeUntilDestroyed()).subscribe((update) => {
       this.state.update((state) => ({
         ...state,
         checklists: state.checklists.map((checklist) =>
@@ -75,8 +80,8 @@ export class ChecklistService extends ChecklistServiceBase {
             ? { ...checklist, title: update.data.title }
             : checklist
         ),
-      }))
-    );
+      }));
+    });
 
     // effects
     effect(() => {

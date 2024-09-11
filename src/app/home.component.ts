@@ -27,5 +27,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   `,
   standalone: true,
 })
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export default class HomeComponent {}

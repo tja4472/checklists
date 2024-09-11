@@ -1,19 +1,9 @@
-import {
-  Injectable,
-  Signal,
-  computed,
-  effect,
-  inject,
-  signal,
-} from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Signal } from '@angular/core';
 import { Subject } from 'rxjs';
-import { RemoveChecklist } from 'src/app/shared/interfaces/checklist';
 import {
   AddChecklistItem,
   ChecklistItem,
   EditChecklistItem,
-  RemoveChecklistItem,
 } from 'src/app/shared/interfaces/checklist-item';
 
 export abstract class ChecklistItemServiceBase {

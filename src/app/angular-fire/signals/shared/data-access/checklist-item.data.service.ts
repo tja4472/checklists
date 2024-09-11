@@ -1,18 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import {
-  AddChecklist,
-  Checklist,
-  EditChecklist,
-} from 'src/app/shared/interfaces/checklist';
-
-import {
-  AddChecklistItem,
-  ChecklistItem,
-  EditChecklistItem,
-  RemoveChecklistItem,
-} from 'src/app/shared/interfaces/checklist-item';
+import { ChecklistItem } from 'src/app/shared/interfaces/checklist-item';
 
 import {
   collection,
@@ -30,81 +19,6 @@ import {
 import { FirestoreUtils } from '../../../../shared/firestore-utils';
 
 import { Omit2 } from 'src/app/shared/type.utils';
-
-type zzz = { item: Partial<Omit<ChecklistItem, 'id' | 'checklistId'>> };
-
-type T1 = Partial<ChecklistItem>;
-
-const a1: T1 = { title: 'aaa' };
-const a2: T1 = { checked: true };
-const a3: T1 = { id: 'sss' };
-
-type T2 = Omit<T1, 'id' | 'checklistId'>;
-
-const b1: T2 = { title: 'aaa' };
-const b2: T2 = { checked: true };
-const b3: T2 = { title: 'aaa', checked: false };
-// const b3: T2 = { id: 'sss' }; 'id' does not exist in type 'T2'
-
-/*
-type T3 = {
-  title?: string | undefined;
-  checked?: boolean | undefined;
-}
-*/
-type T3 = Partial<Omit<ChecklistItem, 'id' | 'checklistId'>>;
-const c1: T3 = { title: 'aaa' };
-const c2: T3 = { checked: true };
-const c3: T3 = { title: 'aaa', checked: false };
-
-/*
-type T4 = {
-    title?: string | undefined;
-    checked?: boolean | undefined;
-}
-*/
-type T4 = Omit<Partial<ChecklistItem>, 'id' | 'checklistId'>;
-
-/*
-type T5 = {
-    checked: boolean;
-    title: string;
-}
-*/
-type T5 = Omit<ChecklistItem, 'id' | 'checklistId'>;
-
-/*
-Doesn't error on incorrect key
-type T6 = {
-    checklistId: string;
-    title: string;
-    checked: boolean;
-}
-*/
-type T6 = Omit<ChecklistItem, 'id' | 'AAAA'>;
-
-// Omit type does not validate keys correctly
-// https://github.com/microsoft/TypeScript/issues/52871
-
-/*
-type P1 = {
-  id: string;
-  checklistId: string;
-}
-*/
-type P1 = Pick<ChecklistItem, 'id' | 'checklistId'>;
-
-/*
-Type '"id" | "AAAA"' does not satisfy the constraint 'keyof ChecklistItem'.
-type P2 = Pick<ChecklistItem, 'id' | 'AAAA'>
-*/
-
-interface Obj {
-  key1: string;
-  key2: number;
-}
-
-type R1 = Omit2<Obj, 'key1'>; // Type '"kye1"' does not satisfy the constraint 'keyof Obj'.(2344)
 
 type Set = {
   userId: string;
@@ -171,7 +85,7 @@ export class ChecklistItemDataService {
 
   public update(update: Updates) {
     //
-    updateDoc(
+    void updateDoc(
       doc(this.getfirestoreDocCollectionRef(update.userId), update.id),
       update.data
     );
@@ -197,6 +111,7 @@ export class ChecklistItemDataService {
     );
 
     const querySnapshot = await getDocs(q);
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     querySnapshot.forEach(async (doc) => {
       console.log(doc.id, ' => ', doc.data());
       await this.remove(doc.id, userId);

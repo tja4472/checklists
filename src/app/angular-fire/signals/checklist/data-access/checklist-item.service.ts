@@ -1,4 +1,4 @@
-import { Injectable, computed, effect, inject, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subject } from 'rxjs';
 import { ChecklistItemServiceBase } from 'src/app/shared/checklist-item.service.base';
@@ -12,10 +12,10 @@ import {
 
 import { ChecklistItemDataService } from '../../shared/data-access/checklist-item.data.service';
 
-export interface ChecklistItemsState {
+export type ChecklistItemsState = {
   checklistItems: ChecklistItem[];
   loaded: boolean;
-}
+};
 
 @Injectable()
 export class ChecklistItemService extends ChecklistItemServiceBase {
@@ -50,15 +50,16 @@ export class ChecklistItemService extends ChecklistItemServiceBase {
     super();
     this.checklistItemsLoaded$
       .pipe(takeUntilDestroyed())
-      .subscribe((checklistItems) =>
+      .subscribe((checklistItems) => {
         this.state.update((state) => ({
           ...state,
           checklistItems,
           loaded: true,
-        }))
-      );
+        }));
+      });
 
     this.add$.pipe(takeUntilDestroyed()).subscribe(
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       (checklistItem) =>
         // this.checklistItemDataService.add(checklistItem, this.userId),
         this.checklistItemDataService.set({
@@ -83,12 +84,13 @@ export class ChecklistItemService extends ChecklistItemServiceBase {
     );
 
     this.edit$.pipe(takeUntilDestroyed()).subscribe(
-      (update) =>
+      (update) => {
         this.checklistItemDataService.update({
           userId: this.userId,
           id: update.id,
           data: update.data,
-        })
+        });
+      }
       /*      
       this.state.update((state) => ({
         ...state,
@@ -100,6 +102,7 @@ export class ChecklistItemService extends ChecklistItemServiceBase {
     );
 
     this.remove$.pipe(takeUntilDestroyed()).subscribe(
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       (id) => this.checklistItemDataService.remove(id, this.userId)
       /*      
       this.state.update((state) => ({
@@ -157,7 +160,7 @@ export class ChecklistItemService extends ChecklistItemServiceBase {
     this.checklistRemoved$
       .pipe(takeUntilDestroyed())
       .subscribe((checklistId) => {
-        this.checklistItemDataService.removeItemsForChecklist(
+        void this.checklistItemDataService.removeItemsForChecklist(
           checklistId,
           this.userId
         );

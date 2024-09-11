@@ -1,16 +1,14 @@
-import { InjectionToken, inject } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import { getApp, initializeApp } from 'firebase/app';
 
 import { getAuth, connectAuthEmulator } from 'firebase/auth';
 import {
-  Firestore,
   initializeFirestore,
   connectFirestoreEmulator,
-  getFirestore,
   persistentLocalCache,
 } from 'firebase/firestore';
 
-interface FirebaseConfig {
+type FirebaseConfig = {
   apiKey: string;
   authDomain: string;
   databaseURL: string;
@@ -18,7 +16,7 @@ interface FirebaseConfig {
   storageBucket: string;
   messagingSenderId: string;
   appId: string;
-}
+};
 
 export const firebaseConfigEmulatorDemo: FirebaseConfig = {
   apiKey: 'demo-project-key',
@@ -52,11 +50,9 @@ export const AUTH_FIREBASE = new InjectionToken('Firebase auth', {
 export const FIRESTORE_FIREBASE = new InjectionToken('Firebase firestore', {
   providedIn: 'root',
   factory: () => {
-    let firestore: Firestore;
-
     const app = getApp(appName);
 
-    firestore = initializeFirestore(app, {
+    const firestore = initializeFirestore(app, {
       localCache: persistentLocalCache(),
     });
     connectFirestoreEmulator(firestore, 'localhost', 8080);

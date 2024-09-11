@@ -1,14 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-// import { persistenceEnabled as _persistenceEnabled } from '../app.module';
-import { traceUntilFirst } from '@angular/fire/performance';
-import {
-  addDoc,
-  doc,
-  docData,
-  Firestore,
-  setDoc,
-} from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { doc, docData, Firestore, setDoc } from '@angular/fire/firestore';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 
 /*
@@ -26,18 +18,20 @@ import { AsyncPipe, JsonPipe } from '@angular/common';
   imports: [AsyncPipe, JsonPipe],
 })
 export class FirestoreComponent implements OnInit {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public readonly testDocValue$: Observable<any>;
   // public readonly persistenceEnabled = _persistenceEnabled;
 
   constructor(firestore: Firestore) {
     const ref = doc(firestore, 'test/1');
 
-    setDoc(ref, { xx: 'DDD' });
+    void setDoc(ref, { xx: 'DDD' });
 
     // this.testDocValue$ = docData(ref).pipe(traceUntilFirst('firestore'));
     this.testDocValue$ = docData(ref);
     // this.testDocValue$ = of('DummY')
   }
 
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method, @typescript-eslint/no-empty-function
   ngOnInit(): void {}
 }

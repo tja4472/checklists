@@ -1,4 +1,4 @@
-import { Component, OnInit, Optional } from '@angular/core';
+import { Component, Optional } from '@angular/core';
 import {
   Auth,
   GoogleAuthProvider,
@@ -18,7 +18,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styles: [],
   standalone: true,
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   redirect = ['../'];
 
   constructor(
@@ -26,8 +26,6 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {}
-
-  ngOnInit(): void {}
 
   async loginWithGoogle() {
     const provider = new GoogleAuthProvider();

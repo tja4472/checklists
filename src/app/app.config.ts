@@ -12,20 +12,17 @@ import { provideFirebaseApp, initializeApp, getApp } from '@angular/fire/app';
 import {
   browserPopupRedirectResolver,
   connectAuthEmulator,
-  getAuth,
   indexedDBLocalPersistence,
   initializeAuth,
   provideAuth,
 } from '@angular/fire/auth';
 import {
   connectFirestoreEmulator,
-  getFirestore,
   initializeFirestore,
-  persistentLocalCache,
   provideFirestore,
 } from '@angular/fire/firestore';
 
-interface FirebaseConfig {
+type FirebaseConfig = {
   apiKey: string;
   authDomain: string;
   databaseURL: string;
@@ -33,7 +30,7 @@ interface FirebaseConfig {
   storageBucket: string;
   messagingSenderId: string;
   appId: string;
-}
+};
 
 export const firebaseConfigEmulatorDemo: FirebaseConfig = {
   apiKey: 'demo-project-key',
@@ -68,11 +65,9 @@ export const appConfig: ApplicationConfig = {
       return auth;
     }),
     provideFirestore(() => {
-      let firestore;
-
       // bug: experimentalAutoDetectLongPolling not picked up via `getFirestore`
       const app = getApp(appName);
-      firestore = initializeFirestore(app, {
+      const firestore = initializeFirestore(app, {
         experimentalAutoDetectLongPolling: true,
         // localCache: persistentLocalCache(),
       });

@@ -33,6 +33,7 @@ module.exports = {
 }
 ```    
 */
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export type Omit2<T extends {}, K extends keyof T> = Pick<
   T,
   Exclude<keyof T, K>

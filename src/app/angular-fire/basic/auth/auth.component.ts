@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Optional, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Optional } from '@angular/core';
 import {
   Auth,
   authState,
@@ -37,10 +37,12 @@ export class AuthComponent implements OnInit, OnDestroy {
     @Optional() private auth: Auth,
     private router: Router
   ) {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (auth) {
       this.user = authState(this.auth);
       this.userDisposable = authState(this.auth)
         .pipe(
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/consistent-type-assertions, @typescript-eslint/no-explicit-any
           <any>traceUntilFirst('auth'),
           map((u) => !!u)
         )
@@ -51,6 +53,7 @@ export class AuthComponent implements OnInit, OnDestroy {
     }
   }
 
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method, @typescript-eslint/no-empty-function
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
@@ -60,6 +63,6 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
 
   async logout() {
-    return await signOut(this.auth);
+    await signOut(this.auth);
   }
 }

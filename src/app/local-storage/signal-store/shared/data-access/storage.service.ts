@@ -10,7 +10,9 @@ export const LOCAL_STORAGE = new InjectionToken<Storage>(
     factory: () => {
       return inject(PLATFORM_ID) === 'browser'
         ? window.localStorage
-        : ({} as Storage);
+        : // TODO: @typescript-eslint/consistent-type-assertions
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+          ({} as Storage);
     },
   }
 );

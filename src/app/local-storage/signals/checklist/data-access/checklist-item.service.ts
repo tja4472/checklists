@@ -11,10 +11,10 @@ import {
 } from 'src/app/shared/interfaces/checklist-item';
 import { StorageService } from '../../shared/data-access/storage.service';
 
-export interface ChecklistItemsState {
+export type ChecklistItemsState = {
   checklistItems: ChecklistItem[];
   loaded: boolean;
-}
+};
 
 @Injectable()
 export class ChecklistItemService extends ChecklistItemServiceBase {
@@ -43,15 +43,15 @@ export class ChecklistItemService extends ChecklistItemServiceBase {
     super();
     this.checklistItemsLoaded$
       .pipe(takeUntilDestroyed())
-      .subscribe((checklistItems) =>
+      .subscribe((checklistItems) => {
         this.state.update((state) => ({
           ...state,
           checklistItems,
           loaded: true,
-        }))
-      );
+        }));
+      });
 
-    this.add$.pipe(takeUntilDestroyed()).subscribe((checklistItem) =>
+    this.add$.pipe(takeUntilDestroyed()).subscribe((checklistItem) => {
       this.state.update((state) => ({
         ...state,
         checklistItems: [
@@ -63,26 +63,26 @@ export class ChecklistItemService extends ChecklistItemServiceBase {
             checked: false,
           },
         ],
-      }))
-    );
+      }));
+    });
 
-    this.edit$.pipe(takeUntilDestroyed()).subscribe((update) =>
+    this.edit$.pipe(takeUntilDestroyed()).subscribe((update) => {
       this.state.update((state) => ({
         ...state,
         checklistItems: state.checklistItems.map((item) =>
           item.id === update.id ? { ...item, title: update.data.title } : item
         ),
-      }))
-    );
+      }));
+    });
 
-    this.remove$.pipe(takeUntilDestroyed()).subscribe((id) =>
+    this.remove$.pipe(takeUntilDestroyed()).subscribe((id) => {
       this.state.update((state) => ({
         ...state,
         checklistItems: state.checklistItems.filter((item) => item.id !== id),
-      }))
-    );
+      }));
+    });
 
-    this.toggle$.pipe(takeUntilDestroyed()).subscribe((checklistItemId) =>
+    this.toggle$.pipe(takeUntilDestroyed()).subscribe((checklistItemId) => {
       this.state.update((state) => ({
         ...state,
         checklistItems: state.checklistItems.map((item) =>
@@ -90,26 +90,28 @@ export class ChecklistItemService extends ChecklistItemServiceBase {
             ? { ...item, checked: !item.checked }
             : item
         ),
-      }))
-    );
+      }));
+    });
 
-    this.reset$.pipe(takeUntilDestroyed()).subscribe((checklistId) =>
+    this.reset$.pipe(takeUntilDestroyed()).subscribe((checklistId) => {
       this.state.update((state) => ({
         ...state,
         checklistItems: state.checklistItems.map((item) =>
           item.checklistId === checklistId ? { ...item, checked: false } : item
         ),
-      }))
-    );
+      }));
+    });
 
-    this.checklistRemoved$.pipe(takeUntilDestroyed()).subscribe((checklistId) =>
-      this.state.update((state) => ({
-        ...state,
-        checklistItems: state.checklistItems.filter(
-          (item) => item.checklistId !== checklistId
-        ),
-      }))
-    );
+    this.checklistRemoved$
+      .pipe(takeUntilDestroyed())
+      .subscribe((checklistId) => {
+        this.state.update((state) => ({
+          ...state,
+          checklistItems: state.checklistItems.filter(
+            (item) => item.checklistId !== checklistId
+          ),
+        }));
+      });
 
     // effects
     effect(() => {

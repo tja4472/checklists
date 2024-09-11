@@ -10,5 +10,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     </header>
   `,
 })
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export default class HeaderComponent {}

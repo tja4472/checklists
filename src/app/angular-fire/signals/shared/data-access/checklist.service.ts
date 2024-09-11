@@ -1,6 +1,6 @@
-import { Injectable, computed, effect, inject, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Subject, tap } from 'rxjs';
+import { Subject } from 'rxjs';
 import {
   AddChecklist,
   Checklist,
@@ -11,11 +11,11 @@ import { ChecklistItemServiceBase } from 'src/app/shared/checklist-item.service.
 import { ChecklistServiceBase } from 'src/app/shared/checklist.service.base';
 
 import { ChecklistDataService } from './checklist.data.service ';
-export interface ChecklistsState {
+export type ChecklistsState = {
   checklists: Checklist[];
   loaded: boolean;
   error: string | null;
-}
+};
 
 @Injectable()
 export class ChecklistService extends ChecklistServiceBase {
@@ -47,27 +47,34 @@ export class ChecklistService extends ChecklistServiceBase {
     super();
     // reducers
     this.checklistsLoaded$.pipe(takeUntilDestroyed()).subscribe({
-      next: (checklists) =>
+      next: (checklists) => {
         this.state.update((state) => ({
           ...state,
           checklists,
           loaded: true,
-        })),
-      error: (err) => this.state.update((state) => ({ ...state, error: err })),
+        }));
+      },
+      error: (err) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        this.state.update((state) => ({ ...state, error: err }));
+      },
     });
 
     this.add$
       .pipe(takeUntilDestroyed())
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       .subscribe((checklist) =>
         this.storageService.add(checklist, this.userId)
       );
 
     this.remove$
       .pipe(takeUntilDestroyed())
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       .subscribe((id) => this.storageService.remove(id, this.userId));
 
     this.edit$
       .pipe(takeUntilDestroyed())
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       .subscribe((update) => this.storageService.edit(update, this.userId));
   }
 }
